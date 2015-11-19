@@ -1,14 +1,13 @@
 
-#markov chain to generate new Sherlock Holmes text for NaNoGenMo
+#markov chain to generate new Sherlock Holmes text for NaNoGenMo15
 #John Lalor
 
-import random
+import random, os
 
-infile = open('/home/lalor/projects/personal/nanogenmo/holmes_clean.txt','r')
+corpus_path = os.environ['CORPUSFILE']
+infile = open(corpus_path,'r')
 
 corpus = [x.split() for x in infile.read().replace('\r\n',' ').split('SPLITSPLIT')]
-
-print len(corpus)
 
 char_dict = {}
 count = 0
@@ -30,6 +29,7 @@ current_char = '*'
 while current_char != '#':
     print current_char,
     d = char_dict[current_char]
+    
     #build an array of possible characters so I can pick one randomly
     pointer = 0
     vals = []
@@ -37,8 +37,7 @@ while current_char != '#':
         if k == 'count':
             continue
         numchars = d[k]
-        vals += [k]*numchars    #list(k*numchars)
-#        print vals
+        vals += [k]*numchars
     current_char = random.choice(vals)
 
 
